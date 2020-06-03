@@ -738,80 +738,136 @@ def view_teacher():
 	teacher_menu.mainloop()
 
 
+# def view_student():
+# 	# global return_entry1
+# 	global return_menu
+# 	# global record_verification
+
+# 	return_menu=Tk()
+# 	return_menu.minsize(900,500)
+# 	return_menu.maxsize(1200,500)
+# 	return_menu.wm_title("View Students")
+# 	return_menu.resizable(0,0)
+
+# 	Id=[]
+# 	StName = []
+# 	StClass = []
+
+# 	f = open ("Record.txt")
+# 	norecord = 0
+# 	for line in f:
+# 		line = line.rstrip()
+# 		words = line.split('|')
+# 		if(words[0] == id):
+# 			pos = binary_search('StudentIndex.txt', words[1])
+# 			if pos != -1:
+# 				norecord += 1
+# 				f2 = open('StudentData.txt', 'r')
+# 				f2.seek(pos)
+# 				l1 = f2.readline()
+# 				l1 = l1.rstrip()
+# 				w1 = l1.split('|')
+# 				Id.append(w1[0])
+# 				record_verification.append(w1[0])
+# 				Title.append(w1[1])
+# 				Author.append(w1[2])
+# 				Availability.append(w1[3])
+# 	f.close()
+
+# 	return_list=Listbox(return_menu,height=50,width=20)
+# 	return_list1=Listbox(return_menu,height=50,width=50)
+# 	return_list2=Listbox(return_menu,height=50,width=50)
+# 	return_list3=Listbox(return_menu,height=50,width=20)
+
+# 	for num in range(0,norecord):
+# 		return_list.insert(0,Id[num])
+# 		return_list1.insert(0,Title[num])
+# 		return_list2.insert(0,Author[num])
+# 		return_list3.insert(0,Availability[num])
+
+# 	return_list.configure(background="light grey")
+# 	return_list1.configure(background="pink")
+# 	return_list2.configure(background="pink")
+# 	return_list3.configure(background="light grey")
+# 	return_label=Label(return_menu,text="Id")
+# 	return_label2=Label(return_menu,text="Title")
+# 	return_label3=Label(return_menu,text="Author")
+# 	return_label4=Label(return_menu,text="Availability")
+
+# 	return_button1=Button(return_menu,text="Return",command=return_check,font=("Times new roman","10","bold"),bg="dark orange")
+# 	return_entry1=Entry(return_menu,width=50)
+# 	return_label1=Label(return_menu,text=" Please enter the BOOK ID that you wish to return ",font=("Times", "12","bold","italic"),bg="light blue")
+# 	return_label1.grid(row=0,columnspan=20)
+# 	return_entry1.grid(row=1,columnspan=20)
+# 	return_button1.grid(row=2,columnspan=20)
+
+# 	return_label.grid(row=3,column=0)
+# 	return_label2.grid(row=3,column=1)
+# 	return_label3.grid(row=3,column=4)
+# 	return_label4.grid(row=3,column=7)
+
+# 	return_list.grid(row=4,column=0)
+# 	return_list1.grid(row=4,column=1)
+# 	return_list2.grid(row=4,column=4)
+# 	return_list3.grid(row=4,column=7)
+
+# 	return_menu.mainloop()
+
 def view_student():
-	# global return_entry1
-	global return_menu
-	# global record_verification
+	# global borrow_entry1
+	global student_menu
 
-	return_menu=Tk()
-	return_menu.minsize(900,500)
-	return_menu.maxsize(1200,500)
-	return_menu.wm_title("View Students")
-	return_menu.resizable(0,0)
+	student_menu=Tk()
 
-	Id=[]
-	StName = []
+	student_menu.wm_title("View students")
+	student_menu.minsize(900,550)
+	student_menu.maxsize(1200,550)
+	student_menu.resizable(0,0)
+
+	StId=[]
+	Stname = []
 	StClass = []
 
-	f = open ("Record.txt")
+	f2 = open('StudentIndex.txt', 'r')
+	f1 = open ("StudentData.txt", 'r')
 	norecord = 0
-	for line in f:
-		line = line.rstrip()
-		words = line.split('|')
-		if(words[0] == id):
-			pos = binary_search('StudentIndex.txt', words[1])
-			if pos != -1:
-				norecord += 1
-				f2 = open('StudentData.txt', 'r')
-				f2.seek(pos)
-				l1 = f2.readline()
-				l1 = l1.rstrip()
-				w1 = l1.split('|')
-				Id.append(w1[0])
-				record_verification.append(w1[0])
-				Title.append(w1[1])
-				Author.append(w1[2])
-				Availability.append(w1[3])
-	f.close()
+	for line in f2:
+		norecord += 1
+		line = line.rstrip('\n')
+		word = line.split('|')
+		f1.seek(int(word[1]))
+		line0 = f1.readline().rstrip()
+		word0 = line0.split('|')
+		StId.append(word0[0])
+		Stname.append(word0[1])
+		StClass.append(word0[2])
 
-	return_list=Listbox(return_menu,height=50,width=20)
-	return_list1=Listbox(return_menu,height=50,width=50)
-	return_list2=Listbox(return_menu,height=50,width=50)
-	return_list3=Listbox(return_menu,height=50,width=20)
+	f1.close()
+	s_list=Listbox(student_menu,height=50,width=20)
+	s_list1=Listbox(student_menu,height=50,width=50)
+	s_list2=Listbox(student_menu,height=50,width=50)
 
 	for num in range(0,norecord):
-		return_list.insert(0,Id[num])
-		return_list1.insert(0,Title[num])
-		return_list2.insert(0,Author[num])
-		return_list3.insert(0,Availability[num])
+		s_list.insert(0,StId[num])
+		s_list1.insert(0,Stname[num])
+		s_list2.insert(0,StClass[num])
 
-	return_list.configure(background="light grey")
-	return_list1.configure(background="pink")
-	return_list2.configure(background="pink")
-	return_list3.configure(background="light grey")
-	return_label=Label(return_menu,text="Id")
-	return_label2=Label(return_menu,text="Title")
-	return_label3=Label(return_menu,text="Author")
-	return_label4=Label(return_menu,text="Availability")
+	s_list.configure(background="light grey")
+	s_list1.configure(background="pink")
+	s_list2.configure(background="pink")
+	s_label=Label(student_menu,text="Id")
+	s_label2=Label(student_menu,text="Student's Name")
+	s_label3=Label(student_menu,text="Class")
 
-	return_button1=Button(return_menu,text="Return",command=return_check,font=("Times new roman","10","bold"),bg="dark orange")
-	return_entry1=Entry(return_menu,width=50)
-	return_label1=Label(return_menu,text=" Please enter the BOOK ID that you wish to return ",font=("Times", "12","bold","italic"),bg="light blue")
-	return_label1.grid(row=0,columnspan=20)
-	return_entry1.grid(row=1,columnspan=20)
-	return_button1.grid(row=2,columnspan=20)
+	s_label.grid(row=3,column=0)
+	s_label2.grid(row=3,column=1)
+	s_label3.grid(row=3,column=4)
 
-	return_label.grid(row=3,column=0)
-	return_label2.grid(row=3,column=1)
-	return_label3.grid(row=3,column=4)
-	return_label4.grid(row=3,column=7)
+	s_list.grid(row=4,column=0)
+	s_list1.grid(row=4,column=1)
+	s_list2.grid(row=4,column=4)
 
-	return_list.grid(row=4,column=0)
-	return_list1.grid(row=4,column=1)
-	return_list2.grid(row=4,column=4)
-	return_list3.grid(row=4,column=7)
-
-	return_menu.mainloop()
+	student_menu.mainloop()
 
 
 #teacher search
