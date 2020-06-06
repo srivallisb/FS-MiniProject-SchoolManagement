@@ -541,35 +541,51 @@ def del_student():
 	del_item.resizable(0,0)
 	k_font = tkinter.font.Font(family='Helvetica', size=12, weight=tkinter.font.BOLD)
 
-	Id=[]
-	Name = []
-	Class_Section = []
+	StId=[]
+	StName = []
+	StClass = []
 
-	f1 = open('StudentIndex.txt', 'r')
-	f = open ("StudentData.txt", 'r')
-	norecord = 0
-	for line1 in f1:
-		if not line1.startswith('*'):
-			norecord += 1
-			line1 = line1.rstrip('\n')
-			word1 = line1.split('|')
-			f.seek(int(word1[1]))
-			line2 = f.readline().rstrip()
-			word2 = line2.split('|')
-			Id.append(word2[0])
-			Name.append(word2[1])
-			Class_Section.append(word2[2])
+	# f3 = open('StudentIndex.txt', 'r')
+	# f2 = open ("StudentData.txt", 'r')
+	# norecord = 0
+	# for line0 in f3:
+	# 	if not line0.startswith('*'):
+	# 		norecord += 1
+	# 		line0 = line0.rstrip('\n')
+	# 		word0 = line0.split('|')
+	# 		f2.seek(int(word0[1]))
+	# 		line2 = f2.readline().rstrip()
+	# 		word2 = line2.split('|')
+	# 		Id.append(word2[0])
+	# 		Name.append(word2[1])
+	# 		Class_Section.append(word2[2])
 
-	f.close()
+	# f2.close()
+
+	f2 = open('StudentIndex.txt', 'r')
+	f3 = open ("StudentData.txt", 'r')
+	norecords = 0
+	for lin in f2:
+		norecords += 1
+		lin = lin.rstrip('\n')
+		words = lin.split('|')
+		f3.seek(int(words[1]))
+		line0 = f3.readline().rstrip()
+		word0 = line0.split('|')
+		StId.append(word0[0])
+		StName.append(word0[1])
+		StClass.append(word0[2])
+
+	f3.close()
 
 	student_list=Listbox(del_item,height=50,width=20)
 	student_list2=Listbox(del_item,height=50,width=50)
 	student_list3=Listbox(del_item,height=50,width=50)
 
-	for num in range(0,norecord):
-		student_list.insert(0,Id[num])
-		student_list2.insert(0,Name[num])
-		student_list3.insert(0,Class_Section[num])
+	for num in range(0,norecords):
+		student_list.insert(0,StId[num])
+		student_list2.insert(0,StName[num])
+		student_list3.insert(0,StClass[num])
 
 
 	s_label=Label(del_item,text="Student ID",font=k_font)
@@ -753,25 +769,25 @@ def view_student():
 	StClass = []
 
 	f2 = open('StudentIndex.txt', 'r')
-	f1 = open ("StudentData.txt", 'r')
-	norecord = 0
-	for line in f2:
-		norecord += 1
-		line = line.rstrip('\n')
-		word = line.split('|')
-		f1.seek(int(word[1]))
-		line0 = f1.readline().rstrip()
+	f3 = open ("StudentData.txt", 'r')
+	norecords = 0
+	for lin in f2:
+		norecords += 1
+		lin = lin.rstrip('\n')
+		words = lin.split('|')
+		f3.seek(int(words[1]))
+		line0 = f3.readline().rstrip()
 		word0 = line0.split('|')
 		StId.append(word0[0])
 		Stname.append(word0[1])
 		StClass.append(word0[2])
 
-	f1.close()
+	f3.close()
 	s_list=Listbox(student_menu,height=50,width=20)
 	s_list1=Listbox(student_menu,height=50,width=50)
 	s_list2=Listbox(student_menu,height=50,width=50)
 
-	for num in range(0,norecord):
+	for num in range(0,norecords):
 		s_list.insert(0,StId[num])
 		s_list1.insert(0,Stname[num])
 		s_list2.insert(0,StClass[num])
