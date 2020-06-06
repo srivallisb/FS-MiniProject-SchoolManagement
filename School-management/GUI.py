@@ -370,7 +370,7 @@ def add_student():
 	student_id=Entry(add_details, width=30)
 	student_name=Entry(add_details, width=30)
 	class_name=Entry(add_details, width=30)
-	addbutton1=Button(add_details,command=add_student_check,text=" Add Student ",bg='#0059b3',height=1,width=10,font=k_font)
+	addbutton1=Button(add_details,command=add_student_check,text=" Add Student ",bg='#0059b3', fg='white', height=1,width=10,font=k_font)
 
 	student_id_label.grid(row=1,sticky=E)
 	student_id.grid(row=1,column=1)
@@ -656,6 +656,7 @@ def del_check():
 #------------------------------------------------------
 
 def Main_Menu():
+	global base
 	base = Tk()
 	#Window title and size optimization
 	base.wm_title("SCHOOL FOR LEARNING")
@@ -668,6 +669,7 @@ def Main_Menu():
 	#Bunch of labels
 	status = Label(base,text=("Date and time logged in: " + current_time),bd=1,relief=SUNKEN,anchor=W,bg='light pink')
 	orionLabel=Label(base, text="GYAAN MANDIR",bg='dark orange',font=("Castellar", "50","bold","italic","underline"),fg="black")
+	backbutton=Button(base,command=student_logout,text=" Log out ",bg='black',fg='white',height=2,width=10,font=in_font)
 	welcomeLabel=Label(base,text=("Welcome "+id+"!"),font=("Freestyle Script","50","bold"))
 	img = ImageTk.PhotoImage(Image.open('myschool.jpg').resize((550,290)))
 	topFrame=Frame(base)
@@ -676,6 +678,7 @@ def Main_Menu():
 	#Positioning of labels
 	status.pack(side=BOTTOM,fill=X)
 	orionLabel.pack(fill=X)
+	backbutton.place(height=35,width=100,x=880, y=20)
 	welcomeLabel.pack()
 	Label(base, image=img).pack()
 	topFrame.pack()
@@ -696,6 +699,22 @@ def Main_Menu():
 	search_butn2.pack(side=BOTTOM)
 	base.mainloop()
 
+def student_logout():
+	tkinter.messagebox.showinfo("Login","User Logout Successful!")
+	base.destroy()
+
+	f7=open('TeacherIndex.txt','r')
+	lines1=f7.readlines()
+	f7.close()
+	f8=open('TeacherIndex.txt','w')
+	for line1 in lines1:
+		if line1.startswith('*'):
+			continue
+		else:
+			f8.write(line1)
+	f8.close()
+
+	login_in()
 
 def view_teacher():
 	# global borrow_entry1
@@ -934,16 +953,16 @@ def feedback_in():
 
 	feedback_menu=Tk()
 	feedback_menu.wm_title("Feedback")
-	feedback_menu.maxsize(800,200)
+	feedback_menu.geometry('450x400')
 	feedback_menu.resizable(0,0)
 
-	feedback_bar=Entry(feedback_menu,width=100)
-	feedback_label=Label(feedback_menu,text= "We improve from your valuable feedback.Thank you!",font=("Monotype corsiva","15","italic"),bg="light blue")
+	feedback_bar=Entry(feedback_menu,width=40)
+	feedback_label=Label(feedback_menu,text= "We improve from your valuable feedback.Thank you!",font=("Roboto","13","italic"),bg="light blue", width=40)
 	button1=Button(feedback_menu, text="Submit feedback",command=feedback_check,font=("Times new roman","10","bold"),bg="dark orange")
 
-	feedback_bar.pack(side=TOP)
-	feedback_label.pack(side=TOP)
-	button1.pack(side=TOP)
+	feedback_bar.place(x=100,y=30)
+	feedback_label.place(x=20,y=60 )
+	button1.place(x=170, y=100)
 	feedback_menu.mainloop()
 
 def feedback_check():
